@@ -21,9 +21,23 @@ app.get('/new/:urlToShorten(*)', (req, res, next) => {
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = expression;
     if (regex.test(urlToShorten) === true) {
+        var short = Math.floor(Math.random() * 100000).toString();
+        var data = new shortUrl({
+            originalUrl: urlToShorten,
+            shorterUrl: short
+        });
+
+        data.save(err => {
+            if (err) {
+                return res.send('Error saving to databasae');
+            }
+            return res.json(data);
+        });
         return res.json(urlToShorten);
-    } 
-    return res.json({urlToShorten : 'Failed'});
+    }
+    return res.json({
+        urlToShorten: 'Failed'
+    });
 });
 
 
