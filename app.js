@@ -7,7 +7,10 @@ const mongoose = require('mongoose');
 app.use(bodyParser.json());
 app.use(cors());
 
-
+// Creates the database entry
+app.get('/new/:urlToShorten(*)',(req, res, next)=>{
+    var {urlToShorten} = req.params;
+});
 
 
 
