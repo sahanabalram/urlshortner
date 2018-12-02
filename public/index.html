@@ -13,9 +13,8 @@
             <h5>Technologies: Node, Express, MongoDB, Mongoose, Javascript, HTML, CSS</h5>
         </header>
         <section ng-controller="shortAppCtrl">
-            {{urlToShorten}}
             <input placeholder="Enter URL" ng-model="urlToShorten">
-            <a class="btn btn-primary">Get Short URL</a>
+            <a class="btn btn-primary" ng-href="/new/{{urlToShorten}}">Get Short URL</a>
         </section>
     </body>
 </html>
