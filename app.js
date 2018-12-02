@@ -13,10 +13,17 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
 // allows node to find static content
 app.use(express.static(__dirname + '/public'));
 // Creates the database entry
-app.get('/new/:urlToShorten(*)',(req, res, next)=>{
-    var {urlToShorten} = req.params;
-
-    return res.json({urlToShorten});
+app.get('/new/:urlToShorten(*)', (req, res, next) => {
+    var {
+        urlToShorten
+    } = req.params;
+    // regex for url
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = expression;
+    if (regex.test(urlToShorten) === true) {
+        return res.json(urlToShorten);
+    } 
+    return res.json({urlToShorten : 'Failed'});
 });
 
 
@@ -25,6 +32,6 @@ app.get('/new/:urlToShorten(*)',(req, res, next)=>{
 
 // listen to port
 // process is for on heroku
-app.listen(process.env.PORT||3000, ()=>{
+app.listen(process.env.PORT || 3000, () => {
     console.log("Everything works");
 });
