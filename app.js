@@ -8,6 +8,8 @@ const shortUrl = require('./models/shortUrl');
 app.use(bodyParser.json());
 app.use(cors());
 
+// Connect to the database
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
 // allows node to find static content
 app.use(express.static(__dirname + '/public'));
 // Creates the database entry
