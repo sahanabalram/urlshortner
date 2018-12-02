@@ -1,0 +1,25 @@
+{
+  "name": "urlshortner",
+  "version": "1.0.0",
+  "description": "A backend project to display shortned form urls",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahanabalram/urlshortner.git"
+  },
+  "author": "Sahana Balram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahanabalram/urlshortner/issues"
+  },
+  "homepage": "https://github.com/sahanabalram/urlshortner#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.14"
+  }
+}
