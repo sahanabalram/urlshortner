@@ -14,9 +14,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shortUrls');
 app.use(express.static(__dirname + '/public'));
 // Creates the database entry
 app.get('/new/:urlToShorten(*)', (req, res, next) => {
-    var {
-        urlToShorten
-    } = req.params;
+    var urlToShorten = req.params.urlToShorten;
     // regex for url
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = expression;
@@ -33,14 +31,32 @@ app.get('/new/:urlToShorten(*)', (req, res, next) => {
             }
             return res.json(data);
         });
-        return res.json(urlToShorten);
+       var data = new shortUrl({
+           originalUrl:'urlToShorten does not match the original format',
+           shorterUrl: 'invalid url' 
+       })
     }
-    return res.json({
-        urlToShorten: 'Failed'
-    });
+    return res.json({data});
 });
 
+// Query to database
 
+app.get("/:urlToForward", (req, res, next)=>{
+    // stores the params
+    var shorterUrl = req.params.urlToForward;
+    shorturl.findOne({'shorterUrl': shorterUrl}, (error, data)=>{
+        if(error){
+            return res.send("Error reading database");
+        }
+        var re = new Regex("^(http|https)://","i");
+        var stringToCheck = data.originalUrl;
+        if(re.test(stringToCheck)){
+            res.redirect(301, data.originalUrl);
+        } else{
+            res.redirect(301, 'https://' + data.originalUrl);
+        }
+    });
+});
 
 
 
