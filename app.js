@@ -12,6 +12,8 @@ app.use(express.static(__dirname + '/public'));
 // Creates the database entry
 app.get('/new/:urlToShorten(*)',(req, res, next)=>{
     var {urlToShorten} = req.params;
+
+    return res.json({urlToShorten});
 });
 
 
